@@ -9,7 +9,7 @@ export async function POST(request) {
     const payload = {
       imageUrl: imageUrl,
       textPrompt: prompt,
-      styleStrength: 0.1,
+      styleStrength: 0.0,
     };
 
     

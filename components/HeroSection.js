@@ -76,7 +76,7 @@ const HeroSection = () => {
     if (prompt.name === "Random") {
       const options = prompt.prompt.split(", ");
       const randomIndex = Math.floor(Math.random() * options.length);
-      
+
       setRandomPrompt(options[randomIndex]);
       setCustomPrompt("");
     } else if (prompt.name === "Custom Style") {
@@ -237,8 +237,12 @@ const HeroSection = () => {
         setImage(URL.createObjectURL(file));
         setFile(file);
 
-
-
+        // Get current count, default to 0 if not set
+        const currentCount = parseInt(localStorage.getItem("count") || "0");
+        // Increment count
+        const newCount = currentCount + 1;
+        // Save back to localStorage
+        localStorage.setItem("count", newCount.toString());
 
       } catch (error) {
         console.error("File processing error:", error);
@@ -330,8 +334,12 @@ const HeroSection = () => {
         setImage(URL.createObjectURL(file));
         setFile(file);
 
-
-
+        // Get current count, default to 0 if not set
+        const currentCount = parseInt(localStorage.getItem("count") || "0");
+        // Increment count
+        const newCount = currentCount + 1;
+        // Save back to localStorage
+        localStorage.setItem("count", newCount.toString());
 
       } catch (error) {
         console.error("File processing error:", error);
@@ -348,10 +356,49 @@ const HeroSection = () => {
     }
   };
 
+  const checkUploadLimit = async (user) => {
+    if (!user) {
+      const maxLimit = 5;
+      let currentCount = parseInt(localStorage.getItem("count")) || 0;
+      if (currentCount >= maxLimit) {
+        return { canUpload: false, message: "You've reached your image limit.", availableCount: 0 };
+      }
+      return { canUpload: true, message: "", availableCount: maxLimit - currentCount };
+    } else {
+      const userId = user?.userId || user._id;
+      const packageRes = await axios.get(`/api/packages/${userId}`);
+      if (!packageRes.data?.name) {
+        savePackage({
+          UserId: user?.userId || user._id,
+          name: "Free",
+          price: "0",
+          images: 25,
+        })
+        setImageCount(25);
+        return { canUpload: true, message: "", availableCount: 25 };
+      }
+      const availableCount = packageRes.data.images;
+      setImageCount(availableCount);
+      return { canUpload: true, message: "", availableCount };
+    }
+  };
+
   const uploadToLightX = async (file) => {
     setIsError(false);
     setErrorMessage("");
     setResultImage(null);
+
+    // Check upload limits first
+    const { canUpload, message, availableCount } = await checkUploadLimit(user);
+    if (!canUpload) {
+      setIsError(true);
+      setErrorMessage(message);
+      if (!user) {
+        setShowModal(true); // Show upgrade modal for visitors
+      }
+      return;
+    }
+
     if (!randomPrompt && !customPrompt && !selectedPrompt) {
       console.log("no prompt selected");
       setIsError(true);
@@ -371,7 +418,7 @@ const HeroSection = () => {
       setErrorMessage(
         "Please agree to the terms and conditions before uploading."
       );
-      return; // Exit the function if the checkbox is not checked
+      return;
     }
 
     setIsLoading(true);
@@ -500,8 +547,12 @@ const HeroSection = () => {
 
             handleDBImage(data.output);
           } else {
-            const currentCount = localStorage.getItem("count");
-            localStorage.setItem("count", currentCount + 1);
+            // Get current count, default to 0 if not set
+            const currentCount = parseInt(localStorage.getItem("count") || "0");
+            // Increment count
+            const newCount = currentCount + 1;
+            // Save back to localStorage
+            localStorage.setItem("count", newCount.toString());
           }
 
           return;

@@ -26,17 +26,22 @@ export async function POST(request) {
       otp
     });
 
-    // Send email
+    // Send email using SMTP
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false // Only use this in development
+      }
     });
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"${process.env.SMTP_FROM_NAME}" <${process.env.SMTP_FROM_EMAIL}>`,
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP code is: ${otp}\nThis code expires in 10 minutes.`,
