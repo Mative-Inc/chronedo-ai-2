@@ -50,7 +50,7 @@ const Footer = () => {
         {/* Column 1 */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <img src="/Chronedo_AI.png" alt="logo" width={150} height={50} className="w-30 h-10" />
+            <img src="/Chronedo_AI.png" alt="logo" width={150} height={50} className="" />
             <p className="text-white text-sm">
               © 2025 Watch Background Generator. All rights reserved.
             </p>
