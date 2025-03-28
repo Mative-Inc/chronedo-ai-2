@@ -270,6 +270,7 @@ const HeroSection = () => {
     if (!file) {
       setErrorMessage("upload image");
     }
+    let userType;
 
     if (!user) {
       userType = "visitor";

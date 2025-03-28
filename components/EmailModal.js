@@ -1,32 +1,38 @@
 "use client";
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 const EmailModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   const res = await fetch("/api/email", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ mail: email }),
+  //   });
+  //   const data = await res.json();
+  //   setEmail("");
+  //   localStorage.setItem("count", localStorage.getItem("count") - 2);
+  //   if (data) {
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(false);
+  //   }
+  //   onClose();
+  // }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const res = await fetch("/api/email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ mail: email }),
-    });
-    const data = await res.json();
-    setEmail("");
-    localStorage.setItem("count", localStorage.getItem("count") - 2);
-    if (data) {
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-    onClose();
-  }
+  const handleSignUp = () => {
+    router.push('/signup'); // Navigate to signup page
+    onClose(); // Close the modal
+  };
 
   return (
     <AnimatePresence>
@@ -44,13 +50,29 @@ const EmailModal = ({ isOpen, onClose }) => {
             className="bg-gray-900 border border-gray-700 rounded-xl p-8 w-full max-w-lg mx-4"
           >
             <h2 className="text-2xl font-semibold text-white mb-2">
-              Join Our Mailing List
+            Out of Credits!
             </h2>
             <p className="text-gray-400 mb-6 text-lg">
-              Get exclusive access to premium features and stay updated with our latest releases!
+              Your free credits just ran out.<br /><br />
+              Sign up for free (no credit card, promise) and get more credits! Let’s keep the fun going! 📸
             </p>
+
+            <div className="flex justify-end gap-4 mt-6">
+              <button
+                onClick={onClose}
+                className="px-6 py-3 text-gray-300 hover:text-white transition-colors text-lg border border-gray-700 rounded-lg hover:bg-gray-800"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSignUp}
+                className="px-8 py-3 bg-gradient-to-r from-[#21ABFD] to-[#0055DE] text-white rounded-lg transition-all hover:opacity-90 text-lg font-medium"
+              >
+                Sign Up
+              </button>
+            </div>
             
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <input
                   type="email"
@@ -96,7 +118,7 @@ const EmailModal = ({ isOpen, onClose }) => {
                   )}
                 </button>
               </div>
-            </form>
+            </form> */}
           </motion.div>
         </motion.div>
       )}
