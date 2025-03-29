@@ -18,7 +18,7 @@ const pricingCards = [
         type: "Monthly",
     },
     {
-        id: "price_1R6Rv2PFeWozK4w0HhFXlo2c",
+        id: "price_1R7ynVBBhI4tFghsuYRvMbtx",
         title: "Basic",
         description: "For the power user",
         price: "19.99",
@@ -30,7 +30,7 @@ const pricingCards = [
         type: "Monthly",
     },
     {
-        id: "price_1R6Rx0PFeWozK4w0ZjkrXlw3",
+        id: "price_1R7yoqBBhI4tFghshZijxx2w",
         title: "Premium",
         description: "For the power user",
         price: "39.99",
@@ -43,7 +43,7 @@ const pricingCards = [
     },
     
     {
-        id: "price_1R77iEPFeWozK4w0AOJ6HKE3",
+        id: "price_1R7ypfBBhI4tFghsx9KYwsca",
         title: "Enterprise",
         description: "For the power user",
         price: "139.99",
