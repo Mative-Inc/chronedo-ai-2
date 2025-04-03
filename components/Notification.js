@@ -9,6 +9,7 @@ const Notification = ({
   message,
   link = null,
   type = "success",
+  btnText = "Continue",
 }) => {
   if (!isOpen) return null;
 
@@ -55,7 +56,7 @@ const Notification = ({
               href={link}
               className="w-full bg-gradient-to-r from-[#21A7FD] to-[#2174FE] cursor-pointer py-3 rounded-lg font-medium"
             >
-              Continue
+              {btnText}
             </Link>
           )}
 

@@ -195,8 +195,9 @@ const HeroSection = () => {
       if (currentCount >= maxLimit) {
         setError({
           title: "Out of Credits!",
-          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
-          link: "/signup"
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits! Let’s keep the fun going! 📸",
+          link: "/signup",
+          btnText: "Sign Up for Free"
         })
         setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!")
         return;
@@ -286,9 +287,10 @@ const HeroSection = () => {
       if (currentCount >= maxLimit) {
         setError({
           title: "Out of Credits!",
-          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
-          link: "/signup"
-        })
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits! Let’s keep the fun going! 📸",
+          link: "/signup",
+          btnText: "Sign Up for Free"
+        });
         setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!")
         return;
       }
@@ -406,8 +408,9 @@ const HeroSection = () => {
         setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!");
         setError({
           title: "Out of Credits!",
-          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
-          link: "/signup"
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits! Let’s keep the fun going! 📸",
+          link: "/signup",
+          btnText: "Sign Up for Free"
         })
       }
       return;
@@ -629,6 +632,7 @@ const HeroSection = () => {
               message={errorMessage}
               type="error1"
               link={error?.link}
+              btnText={error?.btnText}
             />
           )}
 
