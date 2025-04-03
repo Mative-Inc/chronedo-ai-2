@@ -171,6 +171,7 @@ const HeroSection = () => {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
+    // localStorage.setItem("count", 4);
 
     if (!file) return;
 
@@ -190,7 +191,7 @@ const HeroSection = () => {
       // Check limits
 
       if (currentCount >= maxLimit) {
-        setShowModal(true); // Show upgrade modal
+        setErrorMessage("You have reached your limit. Register to receive 25 credits free.")
         return;
       }
 
@@ -254,14 +255,8 @@ const HeroSection = () => {
       } finally {
         setIsLoading(false);
       }
-
-
     }
-
-
     console.log("userType:", userType, "Selected file:", file.name);
-
-
   };
 
   const handleDrop = async (e) => {
@@ -282,7 +277,7 @@ const HeroSection = () => {
       console.log("currentCount", currentCount);
 
       if (currentCount >= maxLimit) {
-        setShowModal(true);
+        setErrorMessage("You have reached your limit. Register to receive 25 credits free.")
         return;
       }
 
@@ -395,7 +390,7 @@ const HeroSection = () => {
       setIsError(true);
       setErrorMessage(message);
       if (!user) {
-        setShowModal(true); // Show upgrade modal for visitors
+        setErrorMessage(message);
       }
       return;
     }
@@ -608,12 +603,15 @@ const HeroSection = () => {
         ></motion.div>
       </div>
 
-      {/* email modal */}
-      <EmailModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-
-      />
+      {errorMessage && (
+            <Notification
+              isOpen={true}
+              onClose={() => setErrorMessage("")}
+              title="Error"
+              message={errorMessage}
+              type="error1"
+            />
+          )}
 
       <div className="relative flex flex-col items-center justify-center max-w-[1200px] mx-auto">
         {/* Content Section */}
@@ -683,15 +681,7 @@ const HeroSection = () => {
             Drag and drop your image here
           </p>
 
-          {errorMessage && (
-            <Notification
-              isOpen={true}
-              onClose={() => setErrorMessage("")}
-              title="Error"
-              message={errorMessage}
-              type="error1"
-            />
-          )}
+          
 
           <input
             id="file-upload"

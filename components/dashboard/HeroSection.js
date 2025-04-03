@@ -195,7 +195,12 @@ const HeroSection = () => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (!file) {
-        setErrorMessage("Please upload an image.");
+        setError("Please upload an image.");
+        return;
+    }
+
+    if(imageCount <= 0) {
+        setError("You've reached your image limit.");
         return;
     }
 
@@ -249,6 +254,12 @@ const HeroSection = () => {
     setIsError(false);
     setError("");
     setResultImage(null);
+
+    if(imageCount <= 0) {
+      setError("You've reached your image limit.");
+      return;
+    }
+
     if (!randomPrompt && !customPrompt && !selectedPrompt) {
       console.log("no prompt selected");
       setIsError(true);
@@ -462,6 +473,16 @@ const HeroSection = () => {
           </motion.h1>
         </div> */}
 
+        {error && (
+          <Notification
+            isOpen={true}
+            onClose={() => setError("")}
+            title="Error"
+            message={error}
+            type="error1"
+          />
+        )}
+
       <motion.p
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -498,15 +519,7 @@ const HeroSection = () => {
           Drag and drop your image here
         </p>
 
-        {error && (
-          <Notification
-            isOpen={true}
-            onClose={() => setError("")}
-            title="Error"
-            message={error}
-            type="error1"
-          />
-        )}
+        
 
         <input
           id="file-upload"
