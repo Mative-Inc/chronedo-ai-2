@@ -65,6 +65,7 @@ const HeroSection = () => {
   const [savingImage, setSavingImage] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { savePackage } = usePackage();
+  const [error, setError] = useState(null);
 
   // const handleFileChange = (e) => {
   //   setFile(e.target.files[0]);
@@ -172,6 +173,7 @@ const HeroSection = () => {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     // localStorage.setItem("count", 4);
+    setError(null)
 
     if (!file) return;
 
@@ -191,7 +193,12 @@ const HeroSection = () => {
       // Check limits
 
       if (currentCount >= maxLimit) {
-        setErrorMessage("You have reached your limit. Register to receive 25 credits free.")
+        setError({
+          title: "Out of Credits!",
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
+          link: "/signup"
+        })
+        setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!")
         return;
       }
 
@@ -277,7 +284,12 @@ const HeroSection = () => {
       console.log("currentCount", currentCount);
 
       if (currentCount >= maxLimit) {
-        setErrorMessage("You have reached your limit. Register to receive 25 credits free.")
+        setError({
+          title: "Out of Credits!",
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
+          link: "/signup"
+        })
+        setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!")
         return;
       }
 
@@ -383,6 +395,7 @@ const HeroSection = () => {
     setIsError(false);
     setErrorMessage("");
     setResultImage(null);
+    setError(null);
 
     // Check upload limits first
     const { canUpload, message, availableCount } = await checkUploadLimit(user);
@@ -390,7 +403,12 @@ const HeroSection = () => {
       setIsError(true);
       setErrorMessage(message);
       if (!user) {
-        setErrorMessage(message);
+        setErrorMessage("Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!");
+        setError({
+          title: "Out of Credits!",
+          message: "Your free credits just ran out. Sign up for free (no credit card, promise) and get more credits!",
+          link: "/signup"
+        })
       }
       return;
     }
@@ -607,9 +625,10 @@ const HeroSection = () => {
             <Notification
               isOpen={true}
               onClose={() => setErrorMessage("")}
-              title="Error"
+              title={error?.title? error.title : "Error"}
               message={errorMessage}
               type="error1"
+              link={error?.link}
             />
           )}
 
