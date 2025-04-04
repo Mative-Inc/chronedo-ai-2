@@ -10,6 +10,7 @@ import { useImageCount } from "@/context/ImageCountContext";
 import { usePackage } from "@/context/PackageContext";
 
 
+
 const prompts = [
   {
     name: "Minimalistic White",
@@ -64,6 +65,8 @@ const HeroSection = () => {
   const [randomPrompt, setRandomPrompt] = useState("");
   const { imageCount, setImageCount } = useImageCount();
   const { savePackage } = usePackage();
+  const [errorlink, setErrorLink]= useState(null)
+  const [errorTitle, setErrorTitle]= useState(null)
 
 
   const handlePromptClick = (prompt) => {
@@ -174,6 +177,8 @@ const HeroSection = () => {
 
     if (availableCount <= 0) {
       setError("You've reached your image limit.");
+      setErrorLink("/dashboard/subscriptions")
+      setErrorTitle("Out of Credits")
       return;
     }
 
@@ -201,6 +206,8 @@ const HeroSection = () => {
 
     if(imageCount <= 0) {
         setError("You've reached your image limit.");
+        setErrorLink("/dashboard/subscriptions");
+        setErrorTitle("Out of Credits")
         return;
     }
 
@@ -216,9 +223,9 @@ const HeroSection = () => {
                 UserId: userId,
                 name: "Free",
                 price: "0",
-                images: 25,
+                images: 5,
             });
-            setImageCount(25);
+            setImageCount(5);
         }
 
         const availableCount = packageRes.data.images;
@@ -226,6 +233,8 @@ const HeroSection = () => {
 
         if (availableCount <= 0) {
             setErrorMessage("You've reached your image limit.");
+            setErrorLink("/dashboard/subscriptions")
+            setErrorTitle("Out of Credits")
             return;
         }
 
@@ -257,8 +266,12 @@ const HeroSection = () => {
 
     if(imageCount <= 0) {
       setError("You've reached your image limit.");
+      setErrorLink("/dashboard/subscriptions")
+      setErrorTitle("Out of Credits")
       return;
     }
+    setErrorLink(null)
+    setErrorTitle(null)
 
     if (!randomPrompt && !customPrompt && !selectedPrompt) {
       console.log("no prompt selected");
@@ -477,9 +490,10 @@ const HeroSection = () => {
           <Notification
             isOpen={true}
             onClose={() => setError("")}
-            title="Error"
+            title={errorTitle? errorTitle : "Error"}
             message={error}
             type="error1"
+            link={errorlink}
           />
         )}
 

@@ -22,7 +22,7 @@ export const ImageCountProvider = ({ children }) => {
 
       } catch (error) {
         console.error("Error fetching image count:", error);
-        setImageCount(25); // Fallback count
+        setImageCount(5); // Fallback count
       }
     };
 

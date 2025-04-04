@@ -229,9 +229,9 @@ const HeroSection = () => {
             UserId: user?.userId || user._id,
             name: "Free",
             price: "0",
-            images: 25,
+            images: 5,
           })
-          setImageCount(25); // Default count for unverified subscribers
+          setImageCount(5); // Default count for unverified subscribers
           // throw new Error("Subscription not verified");
         }
 
@@ -321,9 +321,9 @@ const HeroSection = () => {
             UserId: user?.userId || user._id,
             name: "Free",
             price: "0",
-            images: 25,
+            images: 5,
           })
-          setImageCount(25);
+          setImageCount(5);
         }
 
         const availableCount = packageRes.data.images;
@@ -368,7 +368,7 @@ const HeroSection = () => {
 
   const checkUploadLimit = async (user) => {
     if (!user) {
-      const maxLimit = 5;
+      const maxLimit = 1;
       let currentCount = parseInt(localStorage.getItem("count")) || 0;
       if (currentCount >= maxLimit) {
         return { canUpload: false, message: "You've reached your image limit.", availableCount: 0 };
@@ -382,10 +382,10 @@ const HeroSection = () => {
           UserId: user?.userId || user._id,
           name: "Free",
           price: "0",
-          images: 25,
+          images: 5,
         })
-        setImageCount(25);
-        return { canUpload: true, message: "", availableCount: 25 };
+        setImageCount(5);
+        return { canUpload: true, message: "", availableCount: 5 };
       }
       const availableCount = packageRes.data.images;
       setImageCount(availableCount);

@@ -31,10 +31,10 @@ const Navbar = () => {
             UserId: user?.userId || user._id,
             name: "Free",
             price: "0",
-            images: 25,
+            images: 5,
           })
-          setImageCount(25);
-          setCount(25);
+          setImageCount(5);
+          setCount(5);
           return
         }
 
