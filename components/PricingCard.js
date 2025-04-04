@@ -12,50 +12,7 @@ const PricingCard = ({ card, active, onClick, currentPlan=false }) => {
     const [loading, setLoading]=useState(false);
     console.log("price card user", user)
     
-    // const handleCheckout = async () => {
-    //     console.log("checkout")
-    //     setLoading(true);
-    //     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-    //     // savePackage({
-    //     //     UserId: user?.userId || user._id, 
-    //     //     name: card.title,
-    //     //     price: card.price,
-    //     //     images: card.images,
-    //     // });
-
-        
-      
-        
-    //     const response = await fetch("/api/create-checkout-session", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ priceId: card.id, packageDetails: {
-    //         UserId: user?.userId || user._id,
-    //         name: card.title,
-    //         price: card.price,
-    //         images: card.images,
-    //     } }), 
-    //     });
-      
-    //     const session = await response.json();
-        
-      
-        
-    //     const result = await stripe.redirectToCheckout({ sessionId: session.id });
-    //     setLoading(false);
-    //     if (result.error) {
-    //       console.error(result.error.message);
-    //     }else {
-    //         savePackage({
-    //             UserId: user?.userId, 
-    //             name: card.title,
-    //             price: card.price,
-    //         });
-    //     }
-    //   };
-
+    
     const handleCheckout = async () => {
         console.log("checkout");
         setLoading(true);
