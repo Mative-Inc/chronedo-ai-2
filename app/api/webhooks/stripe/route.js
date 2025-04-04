@@ -27,13 +27,13 @@ export async function POST(req) {
     let event;
     try {
         const buf = await buffer(req.body);
-        event = stripe.webhooks.constructEvent(buf.toString(), sig, process.env.STRIPE_WEBHOOK_SECRET);
+        event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
         console.error("Webhook Error:", err.message);
         return new Response(`Webhook Error: ${err.message}`, { status: 400 });
     }
 
-    // Handle checkout session completion
+    // Handle checkout session completionstr
     if (event.type === "checkout.session.completed") {
         const session = event.data.object;
         const packageDetails = session.metadata;
