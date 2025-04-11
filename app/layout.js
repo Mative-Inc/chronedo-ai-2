@@ -8,6 +8,7 @@ import Providers from "./Providers";
 import { ImageProvider } from "@/context/ImageContext";
 import { PackageProvider } from "@/context/PackageContext";
 import { ImageCountProvider } from "@/context/ImageCountContext";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
