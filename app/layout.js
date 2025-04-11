@@ -28,9 +28,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-
       <head>
-        {/* Google Analytics Scripts */}
+        
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=G-FCK76CXTKB`}
