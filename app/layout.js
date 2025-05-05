@@ -8,7 +8,8 @@ import Providers from "./Providers";
 import { ImageProvider } from "@/context/ImageContext";
 import { PackageProvider } from "@/context/PackageContext";
 import { ImageCountProvider } from "@/context/ImageCountContext";
-import {Analytics} from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react';
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,22 +29,40 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
+      <head>
+        {/* ✅ Proper way to include Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-STPLB1FTKQ"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-STPLB1FTKQ');
+            `,
+          }}
+        />
+      </head>
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
 
         <Providers>
-        <UserProvider>
-          <ImageCountProvider>
-            <PackageProvider>
-              <ImageProvider>
-                {children}
-                <Analytics />
-              </ImageProvider>
-            </PackageProvider>
-          </ImageCountProvider>
+          <UserProvider>
+            <ImageCountProvider>
+              <PackageProvider>
+                <ImageProvider>
+                  {children}
+                  <Analytics />
+                </ImageProvider>
+              </PackageProvider>
+            </ImageCountProvider>
           </UserProvider>
         </Providers>
       </body>

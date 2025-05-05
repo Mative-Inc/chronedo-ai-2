@@ -62,6 +62,24 @@ const Subscription = () => {
     const [currentPackage, setCurrentPackage] = useState(null);
     const { user } = useUser();
 
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'page_view', {
+                page_title: 'Subscription Page',
+                page_location: window.location.href,
+                page_path: '/dashboard/subscriptions',
+            });
+    
+            window.gtag('event', 'subscription_page_visit', {
+                event_category: 'engagement',
+                event_label: 'Subscription Page Visited',
+            });
+        }
+    }, []);
+
+    
+
     useEffect(() => {
         if (!user) return;
         console.log("user in subscription",user);
