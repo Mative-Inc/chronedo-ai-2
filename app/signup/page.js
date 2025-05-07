@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faApple } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "@/layouts/mainLayout";
 import axios from "axios";
 import { signIn } from "next-auth/react";
@@ -37,6 +37,17 @@ const SignUp = () => {
   const handleSignupWithGoogle = () => {
     signIn("google", { callbackUrl: "/" });
   };
+
+  // Fire Google Analytics event
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "visited_register_page", {
+        event_category: "User",
+        event_label: "Visited Register Page",
+        value: 1,
+      });
+    }
+  }, []);
 
   
 

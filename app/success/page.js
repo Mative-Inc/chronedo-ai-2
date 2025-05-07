@@ -12,6 +12,17 @@ const SuccessPage = () => {
         }
     }, [selectedPackage]);
 
+    // Fire Google Analytics event
+      useEffect(() => {
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag("event", "purchase_complete", {
+            event_category: "User",
+            event_label: "Credits Purchased",
+            value: 1,
+          });
+        }
+      }, []);
+
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <h1 className="text-4xl font-bold text-green-500">Payment Successful!</h1>
