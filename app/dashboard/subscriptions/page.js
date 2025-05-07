@@ -12,7 +12,7 @@ const pricingCards = [
         price: "0",
         images: 5,
         features: [
-            { id: 1, feature: "25 images" },
+            { id: 1, feature: "5 images" },
            
         ],
         type: "Monthly",
