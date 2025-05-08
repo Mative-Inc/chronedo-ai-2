@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
         {/* ✅ Proper way to include Google Analytics */}
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-STPLB1FTKQ"
+          src="https://www.googletagmanager.com/gtag/js?id=G-J3D66MPT41"
         />
         <Script
           id="google-analytics"
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-STPLB1FTKQ');
+              gtag('config', 'G-J3D66MPT41');
             `,
           }}
         />
